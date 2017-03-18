@@ -55,9 +55,9 @@ public class Runner {
                     day_with_maximum_cost = purchase.getWeek_day();
                 }
             }
-            System.out.printf("Mean cost = %.3f%nThe total cost on Monday = %s%n" +
+            System.out.printf("Mean cost = %s%nThe total cost on Monday = %s%n" +
                               "The day with the maximum cost purchase is %s%n",
-                              (PURCHASES_NUMBER > 0) ? (double) total_cost / 100 / PURCHASES_NUMBER : 0,
+                              Purchase.meanCostToString(total_cost, PURCHASES_NUMBER),
                               Purchase.priceToString(total_cost_on_monday), day_with_maximum_cost);
 
             // sort the array by numbers

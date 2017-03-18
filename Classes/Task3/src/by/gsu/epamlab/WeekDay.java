@@ -11,6 +11,12 @@ public enum WeekDay {
     FRIDAY(5),
     SATURDAY(6);
 
+    private int id;
+
+    private WeekDay(int id) {
+        this.id = id;
+    }
+
     private static final HashMap<Integer, WeekDay> daysByValue = new HashMap<Integer, WeekDay>();
 
     // filling the map by the all week days
@@ -20,15 +26,9 @@ public enum WeekDay {
         }
     }
 
-    private WeekDay(int id) {
-        this.id = id;
-    }
-
     // get the day id by the week day
-    public static int getId(WeekDay day) { return day.id; }
+    public int getId() { return id; }
 
     // get the week day by the day id
     public static WeekDay getDay(int id) { return daysByValue.get(id); }
-
-    private int id;
 }
