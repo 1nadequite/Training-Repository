@@ -8,7 +8,7 @@ public class Runner {
     public static void main(String[] args) {
         // construct two materials steel and copper
         final Material steel = new Material("steel", 7850.0);
-        final Material copper = new Material("cooper", 8500.0);
+        final Material copper = new Material("copper", 8500.0);
 
         // the object representing steel wire
         Subject wire = new Subject("wire", steel, 0.03);
