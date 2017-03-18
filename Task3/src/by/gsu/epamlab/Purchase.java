@@ -1,25 +1,20 @@
 package by.gsu.epamlab;
 
-import java.util.Comparator;
-
 public class Purchase implements Comparable<Purchase> {
-    private final static String commodity = "milk";
-    private final static int price = 1234;
+    public final static String commodity = "milk";
+    public final static int price = 1234;
     private int number;
     private int percent;
     private WeekDay week_day;
 
-    public Purchase() {}
+    public Purchase() {
+    }
 
     public Purchase(int number, int percent, WeekDay week_day) {
         this.number = number;
         this.percent = percent;
         this.week_day = week_day;
     }
-
-    public static String getCommodity() { return commodity; }
-
-    public static int getPrice() { return price; }
 
     public int getNumber() {
         return number;
@@ -47,17 +42,23 @@ public class Purchase implements Comparable<Purchase> {
 
     // calculating the purchase cost
     public int getCost() {
-        return price * number * (100 - percent) / 100;
+        int cost = price * number * (100 - percent) / 100;
+        return ((cost % 100 > 50) ? cost + 100 : cost) / 100 * 100;
     }
 
     @Override
     public String toString() {
-        return String.format("%d;%d;%d;%d.%d",
-                number, percent, WeekDay.getId(week_day), getCost() / 100, getCost() % 100);
+        return String.format("%d;%d;%d;%s",
+                number, percent, WeekDay.getId(week_day), priceToString(getCost()));
     }
 
     @Override
     public int compareTo(Purchase purchase) {
         return number > purchase.number ? 1 : number == purchase.number ? 0 : -1;
+    }
+
+    // format the price to string
+    public static String priceToString(int value) {
+        return String.format("%d.%d%d", value / 100, value / 10 % 10, value % 10);
     }
 }
