@@ -1,29 +1,29 @@
 package by.gsu.epamlab;
 
 public class Material {
-    private final String NAME;
-    private final double DESTINY;
+    private final String name;
+    private final double destiny;
 
     public Material() {
-        this.NAME = null;
-        this.DESTINY = 0.0;
+        this.name = null;
+        this.destiny = 0.0;
     }
 
     public Material(String name, double destiny) {
-        this.NAME = name;
-        this.DESTINY = destiny;
+        this.name = name;
+        this.destiny = destiny;
     }
 
     public String getName() {
-        return NAME;
+        return name;
     }
 
     public double getDestiny() {
-        return DESTINY;
+        return destiny;
     }
 
     @Override
     public String toString() {
-        return NAME + ";" + DESTINY;
+        return String.format("%s;%.1f", name, destiny);
     }
 }
