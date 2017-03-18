@@ -45,12 +45,8 @@ public class BusinessTrip {
 
     // printing all fields
     public void show() {
-        System.out.printf("rate = %.2f%n" +
-                           "account = %s%n" +
-                           "transport = %.2f%n" +
-                           "days = %d%n" +
-                           "total = %.2f%n%n",
-                           (double) RATE / 100, account, (double) transport / 100, days, (double) getTotal() / 100);
+        System.out.printf("rate = %.2f%naccount = %s%ntransport = %.2f%ndays = %d%ntotal = %.2f%n%n",
+                (double) RATE / 100, account, (double) transport / 100, days, (double) getTotal() / 100);
     }
 
     @Override

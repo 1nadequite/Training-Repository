@@ -6,11 +6,11 @@ public class Runner {
      */
     public static void main(String[] args) {
         BusinessTrip[] trips = {
-            new BusinessTrip("Ivan Ivanov", 1600, 7),
-            new BusinessTrip("Kostya Petrov", 560, 3),
-            null,
-            new BusinessTrip("Vasya Sidorov", 888, 5),
-            new BusinessTrip()
+                new BusinessTrip("Ivan Ivanov", 1600, 7),
+                new BusinessTrip("Kostya Petrov", 560, 3),
+                null,
+                new BusinessTrip("Vasya Sidorov", 888, 5),
+                new BusinessTrip()
         };
 
         // printing the all elements of the array using method show()
