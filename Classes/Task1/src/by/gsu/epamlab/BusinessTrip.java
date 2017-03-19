@@ -45,12 +45,16 @@ public class BusinessTrip {
 
     // printing all fields
     public void show() {
-        System.out.printf("rate = %.2f%naccount = %s%ntransport = %.2f%ndays = %d%ntotal = %.2f%n%n",
-                (double) RATE / 100, account, (double) transport / 100, days, (double) getTotal() / 100);
+        System.out.printf("rate = %s%naccount = %s%ntransport = %s%ndays = %d%ntotal = %s%n%n",
+                toString(RATE), account, toString(transport), days, toString(getTotal()));
     }
 
     @Override
     public String toString() {
-        return String.format("%s;%.2f;%d;%.2f", account, (double) transport / 100, days, (double) getTotal() / 100);
+        return String.format("%s;%s;%s", account, toString(transport), toString(getTotal()));
+    }
+
+    public static String toString(int value) {
+        return String.format("%d.%d%d", value / 100, value / 10 % 10, value % 10);
     }
 }
