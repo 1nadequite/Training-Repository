@@ -34,7 +34,7 @@ public class Runner {
 
             // printing the all elements of the array using method toString();
             System.out.printf("%s;%s%n",
-                    Purchase.commodity, Purchase.priceToString(Purchase.price));
+                    Purchase.NAME, Purchase.priceToString(Purchase.PRICE));
             for (Purchase purchase: purchases) {
                 System.out.println(purchase);
             }
@@ -47,12 +47,12 @@ public class Runner {
 
             for (Purchase purchase: purchases) {
                 total_cost += purchase.getCost();
-                if (purchase.getWeek_day() == WeekDay.MONDAY) {
+                if (purchase.getDay() == WeekDay.MONDAY) {
                     total_cost_on_monday += purchase.getCost();
                 }
                 if (purchase.getCost() > max_cost_per_day) {
                     max_cost_per_day = purchase.getCost();
-                    day_with_maximum_cost = purchase.getWeek_day();
+                    day_with_maximum_cost = purchase.getDay();
                 }
             }
             System.out.printf("Mean cost = %s%nThe total cost on Monday = %s%n" +
@@ -66,7 +66,7 @@ public class Runner {
             // printing the all elements of the array using method toString();
             if (PURCHASES_NUMBER > 0) {
                 System.out.printf("%s;%s%n",
-                        Purchase.commodity, Purchase.priceToString(Purchase.price));
+                        Purchase.NAME, Purchase.priceToString(Purchase.PRICE));
             }
             for (Purchase purchase: purchases) {
                 System.out.println(purchase);

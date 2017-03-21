@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Runner {
 
     private static void printPurchases(Purchase[] purchases) {
-        System.out.printf("%s;%s%n", Purchase.name, Utility.toString(Purchase.price));
+        System.out.printf("%s;%s%n", Purchase.NAME, Utility.toString(Purchase.PRICE));
         for (Purchase purchase: purchases) {
             System.out.println(purchase);
         }
@@ -49,12 +49,12 @@ public class Runner {
             for (Purchase purchase: purchases) {
                 int cost = purchase.getCost();
                 totalCost += cost;
-                if (purchase.getWeek_day() == WeekDay.MONDAY) {
+                if (purchase.getDay() == WeekDay.MONDAY) {
                     totalCostOnMonday += cost;
                 }
                 if (cost > maxCostPerDay) {
                     maxCostPerDay = cost;
-                    dayWithMaximumCost = purchase.getWeek_day();
+                    dayWithMaximumCost = purchase.getDay();
                 }
             }
             if (purchases.length > 0) {

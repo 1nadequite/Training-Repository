@@ -1,19 +1,19 @@
 package by.gsu.epamlab;
 
 public class Purchase implements Comparable<Purchase> {
-    public final static String commodity = "milk";
-    public final static int price = 1357;
+    public final static String NAME = "milk";
+    public final static int PRICE = 1357;
     private int number;
     private int percent;
-    private WeekDay week_day;
+    private WeekDay day;
 
     public Purchase() {
     }
 
-    public Purchase(int number, int percent, WeekDay week_day) {
+    public Purchase(int number, int percent, WeekDay day) {
         this.number = number;
         this.percent = percent;
-        this.week_day = week_day;
+        this.day = day;
     }
 
     public int getNumber() {
@@ -32,24 +32,24 @@ public class Purchase implements Comparable<Purchase> {
         this.percent = percent;
     }
 
-    public WeekDay getWeek_day() {
-        return week_day;
+    public WeekDay getDay() {
+        return day;
     }
 
-    public void setWeek_day(WeekDay week_day) {
-        this.week_day = week_day;
+    public void setDay(WeekDay day) {
+        this.day = day;
     }
 
     // calculating the rounded purchase cost
     public int getCost() {
-        int cost = price * number * (100 - percent) / 100;
+        int cost = PRICE * number * (100 - percent) / 100;
         return ((cost % 100 > 50) ? cost + 100 : cost) / 100 * 100;
     }
 
     @Override
     public String toString() {
         return String.format("%d;%d;%d;%s",
-                number, percent, week_day.getId(), priceToString(getCost()));
+                number, percent, day.getId(), priceToString(getCost()));
     }
 
     @Override
