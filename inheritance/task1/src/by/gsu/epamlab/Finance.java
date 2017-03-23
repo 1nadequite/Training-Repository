@@ -1,15 +1,15 @@
 package by.gsu.epamlab;
 
 public class Finance {
-    private int price;
+    private int coins;
 
     public Finance(int price) {
-        this.price = price;
+        this.coins = price;
     }
 
-    public int getPrice() { return price; }
+    public int getCoins() { return coins; }
 
-    public void setPrice(int price) { this.price = price; }
+    public void setCoins(int coins) { this.coins = coins; }
 
     public static String priceToString(int value) {
         return String.format("%d.%d%d", value / 100, value / 10 % 10, value % 10);
@@ -17,6 +17,6 @@ public class Finance {
 
     @Override
     public String toString() {
-        return priceToString(price);
+        return priceToString(coins);
     }
 }

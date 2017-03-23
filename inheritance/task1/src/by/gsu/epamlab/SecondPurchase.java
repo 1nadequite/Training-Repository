@@ -24,7 +24,7 @@ public class SecondPurchase extends Purchase {
     @Override
     public int getCost() {
         return (getNumber() > NUMBER_FOR_DISCOUNT) ?
-                (int) (getPrice().getPrice() * getNumber() * (1 - discount / 100)) :
+                (int) (getPrice().getCoins() * getNumber() * (1 - discount / 100)) :
                 super.getCost();
     }
 

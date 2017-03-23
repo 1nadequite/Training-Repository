@@ -32,7 +32,7 @@ public class Purchase {
     public void setNumber(int number) { this.number = number; }
 
     public int getCost() {
-        return price.getPrice() * number;
+        return price.getCoins() * number;
     }
 
     protected String fieldsToString() {
@@ -49,6 +49,6 @@ public class Purchase {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Purchase purchase = (Purchase) o;
-        return (name.equals(purchase.name) && price == purchase.price);
+        return (name.equals(purchase.name) && price.getCoins() == purchase.price.getCoins());
     }
 }

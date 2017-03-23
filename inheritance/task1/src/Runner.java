@@ -23,10 +23,8 @@ public class Runner {
                     maxCostPerDay = purchases[i].getCost();
                 }
 
-                for (int j = 0; j < i; j++) {
-                    if (!purchases[i].equals(purchases[j])) {
-                        equalPurchase = false;
-                    }
+                if (i > 0 && !purchases[i].equals(purchases[i - 1])) {
+                    equalPurchase = false;
                 }
             }
             System.out.printf("The maximum cost per day is %s%nAll purchase are %sequal%n",

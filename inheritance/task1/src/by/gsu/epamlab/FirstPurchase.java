@@ -22,7 +22,7 @@ public class FirstPurchase extends Purchase {
 
     @Override
     public int getCost() {
-        return (getPrice().getPrice() - discount) * getNumber();
+        return (getPrice().getCoins() - discount) * getNumber();
     }
 
     @Override
