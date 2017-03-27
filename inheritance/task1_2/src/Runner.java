@@ -9,7 +9,7 @@ public class Runner {
         Scanner sc = null;
 
         try {
-            sc = new Scanner(new FileReader("src/in.txt"));
+            sc = new Scanner(new FileReader("src/in1.txt"));
             final int PURCHASES_NUMBER = 6;
             Purchase[] purchases = new Purchase[PURCHASES_NUMBER];
 
