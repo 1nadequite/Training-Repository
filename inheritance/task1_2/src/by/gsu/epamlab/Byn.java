@@ -47,9 +47,7 @@ public class Byn implements Comparable<Byn> {
         return new Byn(value = getRubs() * 100);
     }
 
-    public Byn round() {
-        return new Byn(value = (getRubs() + ((getCoins() >= 50) ? 1 : 0)) * 100);
-    }
+    public Byn round() { return new Byn(value = (getRubs() + ((getCoins() > 50) ? 1 : 0)) * 100); }
 
     @Override
     public boolean equals(Object obj) {
