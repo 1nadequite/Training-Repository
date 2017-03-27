@@ -73,7 +73,6 @@ public class Runner {
             // finding and printing a purchase with number equaled to 5
             int number = 5;
             int index = Arrays.binarySearch(purchases, new Purchase(number, 0, null));
-            System.out.println(index);
             System.out.printf("Required purchase is %s%n", (index < 0) ? "not found" : purchases[index]);
 
         } catch (FileNotFoundException e) {
