@@ -11,13 +11,13 @@ public class PriceDiscountPurchase extends Purchase {
     }
 
     public PriceDiscountPurchase(Scanner sc) {
-        this(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
+        super(sc);
+        this.discount = new Byn(sc.nextInt());
     }
 
     @Override
     public Byn getCost() {
-        Byn cost = super.getCost();
-        return cost.sub(new Byn(discount).mul(getNumber()));
+        return new Byn(getPrice()).sub(discount).mul(getNumber());
     }
 
     @Override

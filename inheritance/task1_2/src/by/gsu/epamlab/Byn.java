@@ -22,32 +22,24 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn add(Byn byn) {
-        return new Byn(value += byn.value);
+        value += byn.value;
+        return this;
     }
 
     public Byn sub(Byn byn) {
-        return new Byn(value -= byn.value);
+        value -= byn.value;
+        return this;
     }
 
-    public Byn mul(int n) {
-        return new Byn(value *= n);
+    public Byn mul(int coef) {
+        value *= coef;
+        return this;
     }
 
-    public Byn mul(double n) { return new Byn(value *= n); }
-
-    public Byn div(int n) { return new Byn(value /= n); }
-
-    public Byn div(double n) { return new Byn(value /= n); }
-
-    public Byn ceil() {
-        return new Byn(value = (getRubs() + 1) * 100);
+    public Byn mul(double coef, RoundingType type) {
+        value = type.getRoundedValue(value * coef);
+        return this;
     }
-
-    public Byn floor() {
-        return new Byn(value = getRubs() * 100);
-    }
-
-    public Byn round() { return new Byn(value = (getRubs() + ((getCoins() > 50) ? 1 : 0)) * 100); }
 
     @Override
     public boolean equals(Object obj) {

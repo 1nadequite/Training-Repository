@@ -29,6 +29,7 @@ public class Runner {
                 if (equalPurchases) {
                     equalPurchases = purchases[i].equals(purchases[0]);
                 }
+
             }
             System.out.printf("The purchase with maximum cost per day %s%nAll purchase are %sequal%n",
                               (purchaseWithMaxCost != null) ? "is " + purchaseWithMaxCost : "doesn't exit",

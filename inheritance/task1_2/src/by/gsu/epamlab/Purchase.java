@@ -32,8 +32,7 @@ public class Purchase {
     public void setNumber(int number) { this.number = number; }
 
     public Byn getCost() {
-        Byn cost = new Byn(price);
-        return cost.mul(number);
+        return new Byn(price).mul(number);
     }
 
     protected String fieldsToString() {
