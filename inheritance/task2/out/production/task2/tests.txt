@@ -1,0 +1,44 @@
+AbstractPurchase[] purchases = new AbstractPurchase[] {
+    new PriceDiscountPurchase(commodity, 3, 10),
+    new PercentDiscountPurchase(commodity, 8, 5.825),
+    new TransportExpensesPurchase(commodity, 6, 23),
+    new PriceDiscountPurchase(commodity, 10, 73),
+    new TransportExpensesPurchase(commodity, 13, 50),
+    new PercentDiscountPurchase(commodity, 7, 3.5)
+};
+
+AbstractPurchase[] purchases = new AbstractPurchase[] {
+    new PriceDiscountPurchase(commodity, 10, 73),
+    new PercentDiscountPurchase(commodity, 8, 5.825),
+    new TransportExpensesPurchase(commodity, 6, 23),
+    new TransportExpensesPurchase(commodity, 2, 50),
+    new PriceDiscountPurchase(commodity, 11, 10),
+    new PercentDiscountPurchase(commodity, 4, 3.5)
+};
+
+AbstractPurchase[] purchases = new AbstractPurchase[] {
+    new PercentDiscountPurchase(commodity, 8, 5.825),
+    new TransportExpensesPurchase(commodity, 6, 23),
+    new TransportExpensesPurchase(commodity, 2, 50),
+    new PriceDiscountPurchase(commodity, 11, 10),
+    new PercentDiscountPurchase(commodity, 4, 3.5),
+    new PriceDiscountPurchase(commodity, 10, 73)
+};
+
+AbstractPurchase[] purchases = new AbstractPurchase[] {
+    new PercentDiscountPurchase(commodity, 8, 53.825),
+    new TransportExpensesPurchase(commodity, 3, 10),
+    new TransportExpensesPurchase(commodity, 2, 20),
+    new PriceDiscountPurchase(commodity, 10, 73),
+    new PriceDiscountPurchase(commodity, 2, 10),
+    new PercentDiscountPurchase(commodity, 4, 3.5)
+};
+
+AbstractPurchase[] purchases = new AbstractPurchase[] {
+    new PercentDiscountPurchase(commodity, 13, 5.825),
+    new TransportExpensesPurchase(commodity, 34, 10),
+    new PriceDiscountPurchase(commodity, 10, 73),
+    new TransportExpensesPurchase(commodity, 19, 20),
+    new PriceDiscountPurchase(commodity, 16, 10),
+    new PercentDiscountPurchase(commodity, 22, 3.5)
+};

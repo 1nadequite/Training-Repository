@@ -9,8 +9,7 @@ public class PriceDiscountPurchase extends AbstractPurchase {
     }
 
     @Override
-    public Byn getCost() {
-        Byn cost = super.getCost();
+    public Byn countFinalCost(Byn cost) {
         return cost.sub(new Byn(discount).mul(getNumber()));
     }
 

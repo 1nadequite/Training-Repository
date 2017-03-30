@@ -1,7 +1,7 @@
 package by.gsu.epamlab;
 
 public class PercentDiscountPurchase extends AbstractPurchase {
-    public final static int NUMBER_FOR_DISCOUNT = 10;
+    private final static int NUMBER_FOR_DISCOUNT = 5;
     private double percent;
 
     public PercentDiscountPurchase(Commodity commodity, int number, double percent) {
@@ -10,10 +10,9 @@ public class PercentDiscountPurchase extends AbstractPurchase {
     }
 
     @Override
-    public Byn getCost() {
-        Byn cost = super.getCost();
+    public Byn countFinalCost(Byn cost) {
         if (getNumber() > NUMBER_FOR_DISCOUNT) {
-            cost.mul(1 - percent / 100);
+            cost.mul(1 - percent / 100, RoundingType.ROUND);
         }
         return cost;
     }

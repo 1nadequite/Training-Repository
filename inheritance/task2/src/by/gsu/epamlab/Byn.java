@@ -11,9 +11,7 @@ public class Byn implements Comparable<Byn> {
         this(rubs * 100 + coins);
     }
 
-    public Byn(Byn byn) {
-        this(byn.getRubs(), byn.getCoins());
-    }
+    public Byn(Byn byn) { this(byn.getRubs(), byn.getCoins()); }
 
     public int getRubs() {
         return value / 100;
@@ -24,39 +22,28 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn add(Byn byn) {
-        return new Byn(value += byn.value);
+        value += byn.value;
+        return this;
     }
 
     public Byn sub(Byn byn) {
-        return new Byn(value -= byn.value);
+        value -= byn.value;
+        return this;
     }
 
-    public Byn mul(int n) {
-        return new Byn(value *= n);
+    public Byn mul(int coef) {
+        value *= coef;
+        return this;
     }
 
-    public Byn mul(double n) {
-        return new Byn(value *= n);
+    public Byn mul(double coef, RoundingType type) {
+        value = type.getRoundedValue(value * coef);
+        return this;
     }
 
-    public Byn div(int n) {
-        return new Byn(Math.round(value /= n));
-    }
-
-    public Byn div(double n) {
-        return new Byn((int) Math.round(value /= n));
-    }
-
-    public Byn roundUp() {
-        return new Byn(value = (getRubs() + 1) * 100);
-    }
-
-    public Byn roundDown() {
-        return new Byn(value = getRubs() * 100);
-    }
-
-    public Byn round() {
-        return new Byn(value = (getRubs() + ((getCoins() > 50) ? 1 : 0)) * 100);
+    public Byn rounding(int precision, RoundingType type) {
+        value = type.precisionRounding(value, precision);
+        return this;
     }
 
     @Override

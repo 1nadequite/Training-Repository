@@ -1,17 +1,16 @@
 package by.gsu.epamlab;
 
-public class TransportExpensePurchase extends AbstractPurchase {
+public class TransportExpensesPurchase extends AbstractPurchase {
     private Byn transport;
 
-    public TransportExpensePurchase(Commodity commodity, int number, int transport) {
+    public TransportExpensesPurchase(Commodity commodity, int number, int transport) {
         super(commodity, number);
         this.transport = new Byn(transport);
     }
 
     @Override
-    public Byn getCost() {
-        Byn cost = super.getCost();
-        return cost.sub(transport);
+    public Byn countFinalCost(Byn cost) {
+        return cost.add(transport);
     }
 
     @Override
