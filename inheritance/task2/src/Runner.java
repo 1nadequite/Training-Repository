@@ -11,15 +11,15 @@ public class Runner {
     }
 
     public static void main(String[] args) {
-        Commodity commodity = new Commodity("Milk", 124);
+        final Commodity milk = new Commodity("Milk", 124);
 
         AbstractPurchase[] purchases = new AbstractPurchase[] {
-            new PriceDiscountPurchase(commodity, 3, 10),
-            new PercentDiscountPurchase(commodity, 8, 5.825),
-            new TransportExpensesPurchase(commodity, 6, 23),
-            new PriceDiscountPurchase(commodity, 10, 73),
-            new TransportExpensesPurchase(commodity, 13, 50),
-            new PercentDiscountPurchase(commodity, 7, 3.5)
+            new PriceDiscountPurchase(milk, 3, 10),
+            new PercentDiscountPurchase(milk, 8, 5.825),
+            new TransportExpensesPurchase(milk, 6, 23),
+            new PriceDiscountPurchase(milk, 10, 73),
+            new TransportExpensesPurchase(milk, 13, 50),
+            new PercentDiscountPurchase(milk, 7, 3.5)
         };
 
         printPurchases(purchases);
@@ -30,9 +30,9 @@ public class Runner {
 
         System.out.printf("Minimum cost = %s%n", purchases[purchases.length - 1]);
 
-        AbstractPurchase purchase_for_search =
-                new PriceDiscountPurchase(new Commodity(null, 500), 1, 0);
-        int index = Arrays.binarySearch(purchases, purchase_for_search);
+        AbstractPurchase purchaseForSearch =
+                new PriceDiscountPurchase(new Commodity("Milk", 500), 1, 0);
+        int index = Arrays.binarySearch(purchases, purchaseForSearch);
         System.out.printf("Required purchase is %s%n", (index < 0) ? "not found" : purchases[index]);
     }
 }

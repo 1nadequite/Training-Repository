@@ -10,7 +10,7 @@ public class PercentDiscountPurchase extends AbstractPurchase {
     }
 
     @Override
-    public Byn countFinalCost(Byn cost) {
+    protected Byn countFinalCost(Byn cost) {
         if (getNumber() > NUMBER_FOR_DISCOUNT) {
             cost.mul(1 - percent / 100, RoundingType.ROUND);
         }

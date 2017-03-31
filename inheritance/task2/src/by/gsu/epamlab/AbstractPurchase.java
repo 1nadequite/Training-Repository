@@ -1,10 +1,12 @@
 package by.gsu.epamlab;
 
 public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
-    private Commodity commodity;
+    private final Commodity commodity;
     private int number;
 
-    public AbstractPurchase() {}
+    public AbstractPurchase() {
+        this(null, 0);
+    }
 
     public AbstractPurchase(Commodity commodity, int number) {
         this.commodity = commodity;
@@ -13,13 +15,11 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
 
     public Commodity getCommodity() { return commodity; }
 
-    public void setCommodity(Commodity commodity) { this.commodity = commodity; }
-
     public int getNumber() { return number; }
 
     public void setNumber(int number) { this.number = number; }
 
-    abstract Byn countFinalCost(Byn cost);
+    protected abstract Byn countFinalCost(Byn cost);
 
     public Byn getCost() {
         Byn cost = new Byn(commodity.getPrice()).mul(getNumber());
