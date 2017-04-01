@@ -10,7 +10,7 @@ public class PriceDiscountPurchase extends AbstractPurchase {
 
     @Override
     protected Byn countFinalCost(Byn cost) {
-        return cost.sub(new Byn(discount).mul(getNumber()));
+        return cost.sub(discount.mul(getNumber()));
     }
 
     @Override

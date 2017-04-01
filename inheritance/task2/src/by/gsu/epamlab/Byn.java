@@ -1,7 +1,7 @@
 package by.gsu.epamlab;
 
 public class Byn implements Comparable<Byn> {
-    private int value;
+    private final int value;
 
     public Byn(int value) {
         this.value = value;
@@ -22,28 +22,23 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn add(Byn byn) {
-        value += byn.value;
-        return this;
+        return new Byn(value + byn.value);
     }
 
     public Byn sub(Byn byn) {
-        value -= byn.value;
-        return this;
+        return new Byn(value - byn.value);
     }
 
     public Byn mul(int coef) {
-        value *= coef;
-        return this;
+        return new Byn(value * coef);
     }
 
     public Byn mul(double coef, RoundingType type) {
-        value = type.getRoundedValue(value * coef);
-        return this;
+        return new Byn(type.getRoundedValue(value * coef));
     }
 
     public Byn rounding(int precision, RoundingType type) {
-        value = type.precisionRounding(value, precision);
-        return this;
+        return new Byn(type.precisionRounding(value, precision));
     }
 
     @Override

@@ -22,7 +22,7 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
     protected abstract Byn countFinalCost(Byn cost);
 
     public Byn getCost() {
-        Byn cost = new Byn(commodity.getPrice()).mul(getNumber());
+        Byn cost = commodity.getPrice().mul(getNumber());
         // counting cost and rounding it down to 1.00 BYN
         return countFinalCost(cost).rounding(100, RoundingType.FLOOR);
     }
