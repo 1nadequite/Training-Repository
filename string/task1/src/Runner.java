@@ -29,7 +29,7 @@ public class Runner {
                 }
             }
             String firstSymbol = expression.substring(0, Math.min(expression.length(), ConstantVariable.PLUS_LENGTH));
-            expression.delete(0, ConstantVariable.PLUS_LENGTH);
+            expression.delete(0, Math.min(expression.length(), ConstantVariable.PLUS_LENGTH));
             if (firstSymbol.equals(ConstantVariable.MINUS)) {
                 expression.insert(0, "-");
             }

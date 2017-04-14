@@ -8,47 +8,46 @@ import java.util.regex.Pattern;
 public class Runner {
     public static void main(String[] args) {
 
-        ResourceBundle rb = ResourceBundle.getBundle(ConstantVariable.INPUT_PROPERTIES);
-        Enumeration<String> keys = rb.getKeys();
-        String key;
-        Pattern index_pattern = Pattern.compile(ConstantVariable.INDEX + ConstantVariable.REGEX);
-        Pattern value_pattern = Pattern.compile(ConstantVariable.REGEX);
-        Pattern wrong_index_pattern = Pattern.compile(ConstantVariable.INDEX + ".*");
+        try {
+            ResourceBundle rb = ResourceBundle.getBundle(ConstantVariable.INPUT_PROPERTIES);
+            Enumeration<String> keys = rb.getKeys();
+            Pattern indexPattern = Pattern.compile(ConstantVariable.INDEX + "(.*)");
+            Pattern valuePattern = Pattern.compile(ConstantVariable.REGEX);
 
-        double result = 0;
-        int errors = 0;
+            double result = 0;
+            int errors = 0;
+            String key, iString, jString, valueIJ;
 
-        while (keys.hasMoreElements()) {
-            try {
+            while (keys.hasMoreElements()) {
                 key = keys.nextElement();
-                Matcher key_matcher = index_pattern.matcher(key);
+                Matcher keyMatcher = indexPattern.matcher(key);
 
-                String value = ConstantVariable.VALUE;
-                String key_index;
+                if (keyMatcher.matches()) {
 
-                if (key_matcher.matches()) {
+                    iString = keyMatcher.group(ConstantVariable.TAIL_INDEX);
+                    jString = rb.getString(key).trim();
 
-                    value += key_matcher.group(1);
-                    key_index = key_matcher.group();
+                    Matcher iMatcher = valuePattern.matcher(iString);
+                    Matcher jMatcher = valuePattern.matcher(jString);
 
-                    Matcher value_matcher = value_pattern.matcher(rb.getString(key_index));
-
-                    if (value_matcher.matches()) {
-                        value += rb.getString(key_index);
-                        result += Double.parseDouble(rb.getString(value));
+                    if (iMatcher.matches() && jMatcher.matches()) {
+                        valueIJ = ConstantVariable.VALUE + iString + jString;
+                        try {
+                            result += Double.parseDouble(rb.getString(valueIJ));
+                        } catch (MissingResourceException | IndexOutOfBoundsException | NumberFormatException e) {
+                            errors++;
+                        }
                     } else {
                         errors++;
                     }
-                } else if (wrong_index_pattern.matcher(key).matches()) {
-                    errors++;
                 }
-            } catch(MissingResourceException | NumberFormatException e) {
-                errors++;
             }
-        }
 
-        Formatter formattedString = new Formatter();
-        formattedString.format("sum = %.3f\nerror-lines = %d\n", result, errors);
-        System.out.println(formattedString);
+            Formatter formattedString = new Formatter();
+            formattedString.format("sum = %.3f\nerror-lines = %d\n", result, errors);
+            System.out.println(formattedString);
+        } catch (MissingResourceException e) {
+            System.out.println("No input file");
+        }
     }
 }
