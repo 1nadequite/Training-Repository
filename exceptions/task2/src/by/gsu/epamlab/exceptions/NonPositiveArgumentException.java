@@ -1,20 +1,31 @@
 package by.gsu.epamlab.exceptions;
 
 import by.gsu.epamlab.Constants;
+import by.gsu.epamlab.enums.NumField;
 
 public class NonPositiveArgumentException extends IllegalArgumentException {
     private NumField field;
-    private int nonPositiveValue;
+    private int value;
 
     public NonPositiveArgumentException() {}
 
-    public NonPositiveArgumentException(int nonPositiveValue, NumField field) {
-        this.nonPositiveValue = nonPositiveValue;
+    public NonPositiveArgumentException(int value, NumField field) {
+        this.value = value;
         this.field = field;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public String getHead() {
+        return Constants.ERROR_EXCEPTION_NONPOSITIVE_HEAD;
     }
 
     @Override
     public String getMessage() {
-        return String.format("%s %d %s", Constants.ERROR_NON_POSITIVE_VALUE, nonPositiveValue, field);
+        return getHead() + value
+                + Constants.ERROR_EXCEPTION_NONPOSITIVE_BODY + field
+                + Constants.ERROR_EXCEPTION_NONPOSITIVE_FOOT;
     }
 }

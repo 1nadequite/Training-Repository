@@ -17,9 +17,8 @@ public class CsvLineException extends Exception {
         this.csvLine = csvLine;
     }
 
-    @Override
     public String toString() {
-        return String.format("%s\t%s %s", csvLine, Constants.ERROR_EXCEPTION_DELIMITER, getMessage());
+        return csvLine + Constants.ERROR_EXCEPTION_DELIMITER + getMessage();
     }
 }
 

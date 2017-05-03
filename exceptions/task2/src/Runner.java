@@ -1,58 +1,57 @@
 import by.gsu.epamlab.beans.Purchase;
-import by.gsu.epamlab.beans.PurchaseComparatorBuilder;
 import by.gsu.epamlab.beans.PurchasesList;
-import by.gsu.epamlab.Utilits;
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
-
-import java.util.Comparator;
+import by.gsu.epamlab.comparators.PurchaseComparatorBuilder;
 
 public class Runner {
-    private static void printPurchases(String title, String table) {
+    private static void printList(PurchasesList purchases, String title) {
         System.out.println(title);
-        System.out.println(table);
+        System.out.println(purchases.toTable());
+        System.out.println();
     }
 
-    private static void removePurchase(PurchasesList purchasesList, int index) {
-        try {
-            purchasesList.delete(index);
-        } catch (IndexOutOfBoundsException e) {
-            System.err.println(e.getMessage());
+    private static void deleteItem(PurchasesList purchases, int index) {
+        if (purchases.isIndexCorrect(index)) {
+            purchases.delete(index);
         }
     }
 
-    private static void searchResult(PurchasesList purchasesList, Purchase purchase) {
-        try {
-            int index = purchasesList.binarySearch(purchase);
-            System.out.printf("Purchase %s is%s\n", purchase,
-                    (index < 0) ? "n't found" : " found at position " + index);
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-        }
+    private static void searchResult(PurchasesList main, PurchasesList addon, int index) {
+        Purchase purchase = addon.getPurchases().get(index);
+        int position = main.binarySearch(purchase);
+        System.out.printf("Purchase %s is%s\n", purchase,
+                (position < 0) ? "n't found" : " found at position " + position);
     }
 
     public static void main(String[] args) {
-        PurchaseComparatorBuilder.buildPurchaseComparator(args[2]);
+        if (args.length < 3) {
+            System.out.println("command line: java Runner main additional comparator");
+        } else {
+            final int MAIN = 0;
+            final int ADDITIONAL = 1;
+            final int COMPARATOR = 2;
+            PurchaseComparatorBuilder.buildPurchaseComparator(args[COMPARATOR]);
 
-        PurchasesList purchasesList1 = new PurchasesList(args[0]);
+            final PurchasesList mainList = new PurchasesList(args[MAIN]);
 
-        printPurchases("after creation", purchasesList1.toTable());
+            printList(mainList, "after creation");
 
-        PurchasesList purchasesList2 = new PurchasesList(args[1]);
+            final PurchasesList addonList = new PurchasesList(args[ADDITIONAL]);
 
-        purchasesList1.insert(0, purchasesList2.getPurchases().get(4));
-        purchasesList1.insert(1000, purchasesList2.getPurchases().get(0));
-        purchasesList1.insert(2, purchasesList2.getPurchases().get(2));
-        removePurchase(purchasesList1, 3);
-        removePurchase(purchasesList1, 10);
-        removePurchase(purchasesList1, -5);
+            mainList.insert(0, addonList.getPurchases().get(addonList.getPurchases().size() - 1));
+            mainList.insert(1000, addonList.getPurchases().get(0));
+            mainList.insert(2, addonList.getPurchases().get(2));
+            deleteItem(mainList, 3);
+            deleteItem(mainList, 10);
+            deleteItem(mainList, -5);
 
-        printPurchases("before sorting", purchasesList1.toTable());
+            printList(mainList, "before sorting");
 
-        purchasesList1.sort();
+            mainList.sort();
 
-        printPurchases("after sorting", purchasesList1.toTable());
+            printList(mainList, "after sorting");
 
-        searchResult(purchasesList1, purchasesList2.getPurchases().get(1));
-        searchResult(purchasesList1, purchasesList2.getPurchases().get(0));
+            searchResult(mainList, addonList, 1);
+            searchResult(mainList, addonList, 0);
+        }
     }
 }

@@ -1,49 +1,49 @@
 package by.gsu.epamlab.beans;
 
 import by.gsu.epamlab.Constants;
+import by.gsu.epamlab.enums.NumField;
 import by.gsu.epamlab.exceptions.NonPositiveArgumentException;
-import by.gsu.epamlab.exceptions.NumField;
-
-import java.util.Scanner;
 
 public class PriceDiscountPurchase extends Purchase {
     private Byn discount;
 
     public PriceDiscountPurchase() {}
 
+    public PriceDiscountPurchase(String name, Byn price, int number, Byn discount) {
+        super(name, price, number);
+        setDiscount(discount);
+    }
+
     public PriceDiscountPurchase(String name, int price, int number, int discount) {
         super(name, price, number);
         setDiscount(discount);
     }
 
-    public PriceDiscountPurchase(Scanner sc) {
-        this(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt());
-    }
-
     public Byn getDiscount() { return discount; }
 
+    public void setDiscount(Byn discount) {
+        if (discount.equals(new Byn())) {
+            throw new NonPositiveArgumentException(0, NumField.DISCOUNT);
+        }
+        this.discount = discount;
+        if (this.discount.compareTo(getPrice()) >= 0) {
+            throw new IllegalArgumentException(
+                    Constants.ERROR_WRONG_DISCOUNT);
+        }
+    }
+
     public void setDiscount(int discount) {
-        if (discount >= getPrice().getRubs() * 100 + getPrice().getCoins()) {
-            throw new IllegalArgumentException(Constants.ERROR_WRONG_DISCOUNT);
-        }
-        if(discount <= 0) {
-            throw new NonPositiveArgumentException(discount, NumField.DISCOUNT);
-        }
-        this.discount = new Byn(discount);
+        checkPositive(discount, NumField.DISCOUNT);
+        setDiscount(new Byn(discount));
     }
 
     @Override
     public Byn getCost() {
-        return new Byn(getPrice()).sub(discount).mul(getNumber());
-    }
-
-    @Override
-    protected String isDiscount() {
-        return String.format("%s", discount);
+        return super.getCost().sub(new Byn(discount).mul(getNumber()));
     }
 
     @Override
     protected String fieldsToString() {
-        return String.format("%s;%s", super.fieldsToString(), discount);
+        return super.fieldsToString() + Constants.SEPARATOR + discount;
     }
 }

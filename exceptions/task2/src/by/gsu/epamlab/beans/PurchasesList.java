@@ -1,8 +1,10 @@
 package by.gsu.epamlab.beans;
 
 import by.gsu.epamlab.Constants;
-import by.gsu.epamlab.Utilits;
+import by.gsu.epamlab.comparators.PurchaseComparatorBuilder;
+import by.gsu.epamlab.enums.Column;
 import by.gsu.epamlab.exceptions.CsvLineException;
+import by.gsu.epamlab.factories.PurchasesFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,23 +13,26 @@ import java.util.*;
 public class PurchasesList {
     private List<Purchase> purchases;
     private Byn totalCost;
-    private final static Comparator<Purchase> comparator = PurchaseComparatorBuilder.getPurchaseComparator();
-    private boolean isSorted;
+    private final static Comparator<Purchase> COMPARATOR = PurchaseComparatorBuilder.getPurchaseComparator();
+    private boolean ordered;
 
     public PurchasesList() {
-        this.purchases = new ArrayList<Purchase>();
-        this.totalCost = new Byn(0);
-        this.isSorted = false;
+        setPurchases(new ArrayList<Purchase>());
+        this.totalCost = new Byn();
+        this.ordered = true;
     }
 
     public PurchasesList(String fileName) {
         this();
+        final String FILE_PACKAGE = "src/";
+        final String FILE_EXT = ".csv";
+        ordered = false;
         Scanner sc = null;
         try {
-            sc = new Scanner(new FileReader(Utilits.createFilePath(fileName)));
+            sc = new Scanner(new FileReader(FILE_PACKAGE + fileName + FILE_EXT));
             while(sc.hasNext()) {
                 try {
-                    Purchase purchase = PurchasesFactory.getPurchaseFromFactory(sc);
+                    Purchase purchase = PurchasesFactory.getClassFromFactory(sc.nextLine());
                     purchases.add(purchase);
                     totalCost.add(purchase.getCost());
                 } catch (CsvLineException e) {
@@ -35,7 +40,10 @@ public class PurchasesList {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println(Constants.ERROR_FILE_FOUND + " " + fileName);
+            System.err.println(Constants.ERROR_FILE_PROC_HEAD + FILE_PACKAGE
+                    + fileName + FILE_EXT + Constants.ERROR_FILE_PROC_FOOT);
+            setPurchases(new ArrayList<>());
+            ordered = true;
         } finally {
             if (sc != null) {
                 sc.close();
@@ -48,33 +56,33 @@ public class PurchasesList {
     }
 
     public void setPurchases(List<Purchase> purchases) {
+        if (purchases == null) {
+            throw new NullPointerException();
+        }
         this.purchases = purchases;
+        ordered = false;
     }
 
     public void insert(int index, Purchase purchase) {
-        if (isIndexCorrect(index)) {
-            purchases.add(index, purchase);
-        } else {
-            purchases.add(purchase);
+        if (index < 0) {
+            index = 0;
         }
-        isSorted = false;
+        if (index > purchases.size()) {
+            index = purchases.size();
+        }
+        purchases.add(index, purchase);
         totalCost.add(purchase.getCost());
+        ordered = false;
     }
 
     public boolean isIndexCorrect(int index) {
-        try {
-            purchases.get(index);
-        } catch (IndexOutOfBoundsException e) {
-            return false;
-        }
-        return true;
+        return index >= 0 && index < purchases.size();
     }
 
-    public void delete(int index) {
-        if (isIndexCorrect(index)) {
-            totalCost.sub(purchases.get(index).getCost());
-            purchases.remove(index);
-        }
+    public int delete(int index) {
+        totalCost.sub(purchases.get(index).getCost());
+        purchases.remove(index);
+        return index;
     }
 
     public Byn getTotalCost() {
@@ -83,25 +91,26 @@ public class PurchasesList {
 
     public String toTable() {
         StringBuilder table = new StringBuilder();
-        table.append(String.format(Constants.PRINT_FORMAT_TITLE, Constants.NAME, Constants.PRICE, Constants.NUMBER,
-                Constants.DISCOUNT, Constants.COST));
-        for (Purchase purchase: purchases) {
-            table.append(String.format(purchase.getTableView()));
+        table.append(Column.getHeader()).append('\n');
+        table.append(Column.HORIZONTAL_LINE).append('\n');
+        for (Purchase purchase : purchases) {
+            table.append(Column.getRow(purchase.toString())).append('\n');
         }
-        table.append(String.format(Constants.PRINT_FORMAT_TOTAL, Constants.TOTAL_COST, totalCost));
+        table.append(Column.HORIZONTAL_LINE).append('\n');
+        table.append(Column.getFooter(getTotalCost())).append('\n');
         return table.toString();
     }
 
     public void sort() {
-        isSorted = true;
-        Collections.sort(purchases, comparator);
+        Collections.sort(purchases, COMPARATOR);
+        ordered = true;
     }
 
     public int binarySearch(Purchase purchase) {
-        if (isSorted) {
-            return Collections.binarySearch(purchases, purchase, comparator);
-        } else {
-            throw new IllegalArgumentException(Constants.ERROR_SORT_ARRAY);
+        if (!ordered) {
+            sort();
         }
+        return Collections.binarySearch(purchases, purchase,
+                COMPARATOR);
     }
 }
